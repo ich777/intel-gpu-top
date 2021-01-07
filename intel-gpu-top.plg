@@ -5,7 +5,7 @@
   <!ENTITY version   "2021.01.07">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
-  <!ENTITY md5       "fc9914e80de79206d8b31ce259616204">
+  <!ENTITY md5       "2a0dc0d10529421d0bde28edd4e55495">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
