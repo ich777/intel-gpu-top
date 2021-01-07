@@ -1,0 +1,97 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+  <!ENTITY name      "intel-gpu-top">
+  <!ENTITY author    "ich777">
+  <!ENTITY version   "2021.01.07">
+  <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
+  <!ENTITY pluginURL "&gitURL;/&name;.plg">
+  <!ENTITY md5       "fc9914e80de79206d8b31ce259616204">
+  <!ENTITY plugin    "/boot/config/plugins/&name;">
+  <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
+]>
+
+<PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.9.0-beta31">
+
+<CHANGES>
+
+###2021.01.07
+- Initial release
+
+</CHANGES>
+
+<FILE Run="/bin/bash">
+<INLINE>
+rm -f $(ls /boot/config/plugins/&name;/&name;*.txz 2>/dev/null|grep -v '&version;')
+</INLINE>
+</FILE>
+
+<FILE Name="/boot/config/plugins/&name;/&name;-&version;.txz" Run="upgradepkg --install-new">
+<URL>&gitURL;/packages/&name;-&version;.txz</URL>
+<MD5>&md5;</MD5>
+</FILE>
+
+<FILE Name="&emhttp;/README.md">
+<INLINE>
+**Intel GPU TOP**
+
+This Plugin adds the tool 'intel_gpu_top' to your unRAID server and also enables your Intel iGPU from the installation of this plugin, so no editis to the 'go' file or creation of other files are necessary.
+To see the usage of your iGPU open up the unRAID Terminal and type in 'intel_gpu_top' (without quotes).
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash">
+<INLINE>
+
+enableintel() {
+#Download iSCSI Target
+if modprobe i915 ; then
+  echo
+  echo "---Intel Kernel Module successfully enabled!---"
+else
+  echo
+  echo "------Something went wrong! Can't enable-------"
+  echo "----Intel Kernel Module, removing package!-----"
+  removepkg &name;-&version;
+  rm -rf /usr/local/emhttp/plugins/&name;
+  rm -rf &plugin;
+  exit 1
+fi
+sleep 1
+chmod -R 777 /dev/dri
+}
+
+#Check if Kernel Module is already enabled
+if [ -z "$(lsmod | grep "i915")" ]; then
+  echo
+  echo "---------Enabling Intel Kernel Module----------"
+  enableintel
+else
+  echo
+  echo "-----Intel Kernel Module already enabled!------"
+fi
+
+echo
+echo "----Installation of Intel GPU TOP complete-----"
+
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+
+echo "-----------------------------------------------"
+echo "----------Uninstalling Intel GPU TOP-----------"
+echo "-----------------------------------------------"
+# Remove plugin related files
+removepkg &name;-&version;
+rm -rf /usr/local/emhttp/plugins/&name;
+rm -rf &plugin;
+echo
+echo "-----------------------------------------------"
+echo "---Uninstallation of Intel GPU TOP complete!---"
+echo "-----------------------------------------------"
+echo
+
+</INLINE>
+</FILE>
+</PLUGIN>
