@@ -34,7 +34,7 @@ rm -f $(ls /boot/config/plugins/&name;/&name;*.txz 2>/dev/null|grep -v '&version
 <INLINE>
 **Intel GPU TOP**
 
-This Plugin adds the tool 'intel_gpu_top' to your unRAID server and also enables your Intel iGPU from the installation of this plugin, so no editis to the 'go' file or creation of other files are necessary.
+This Plugin adds the tool 'intel_gpu_top' to your unRAID server and also enables your Intel iGPU from the installation of this plugin on, so no editis to the 'go' file or creation of other files are necessary.
 To see the usage of your iGPU open up the unRAID Terminal and type in 'intel_gpu_top' (without quotes).
 </INLINE>
 </FILE>
