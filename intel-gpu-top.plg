@@ -2,10 +2,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2021.01.09">
+  <!ENTITY version   "2021.03.14">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
-  <!ENTITY md5       "471757efec3bc028299ea72eabdbd662">
+  <!ENTITY md5       "55c355ab56d7182114196058f9ce4093">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2021.03.14
+- Fixed unRAID GUI mode not working
 
 ###2021.01.09
 - Added 'intel_gpu_frequency' - based on Intel-GPU-Tools 1.25
@@ -46,7 +49,7 @@ To see the usage of your iGPU open up the unRAID Terminal and type in 'intel_gpu
 <INLINE>
 
 enableintel() {
-#Download iSCSI Target
+#Enable Intel Kernel module
 if modprobe i915 ; then
   echo
   echo "---Intel Kernel Module successfully enabled!---"
