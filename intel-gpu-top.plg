@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2021.03.14a">
+  <!ENTITY version   "2021.03.24">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
   <!ENTITY md5       "b0ef7169cd2501b504b5a6f818e2cc0b">
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2021.03.24
+- Added check for Intel GVT-g Plugin
 
 ###2021.03.14a
 - Removed 'intel_gpu_frequency'
@@ -71,7 +74,11 @@ chmod -R 777 /dev/dri
 }
 
 #Check if Kernel Module is already enabled
-if [ -z "$(lsmod | grep "i915")" ]; then
+if [ -d /boot/config/plugins/intel-gvt-g ]; then
+  echo
+  echo "-----------Found Intel GVT-g Plugin!-----------"
+  echo "---GVT-g Plugin will enable the i915 Module!---"
+elif [ -z "$(lsmod | grep "i915")" ]; then
   echo
   echo "---------Enabling Intel Kernel Module----------"
   enableintel
