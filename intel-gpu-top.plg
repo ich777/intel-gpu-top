@@ -2,10 +2,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2021.04.01">
+  <!ENTITY version   "2021.05.04">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
-  <!ENTITY md5       "f5fb5a8996085cc5b3d2c00565f339ed">
+  <!ENTITY md5       "09e55abd3880684513b29441e141e4fc">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -13,6 +13,10 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2021.05.04
+- Bumped 'intel_gpu_top' version. Based on Intel-GPU-Tools v1.26
+- Changed package name to avoid conflicts with other plugins
 
 ###2021.04.01
 - Bumped 'intel_gpu_top' version to Gitlab master branch from 2021.04.01
@@ -39,12 +43,12 @@
 
 <FILE Run="/bin/bash">
 <INLINE>
-rm -f $(ls /boot/config/plugins/&name;/&name;*.txz 2>/dev/null|grep -v '&version;')
+rm -f $(ls /boot/config/plugins/&name;/intel.gpu.top*.txz 2>/dev/null|grep -v '&version;')
 </INLINE>
 </FILE>
 
-<FILE Name="/boot/config/plugins/&name;/&name;-&version;.txz" Run="upgradepkg --install-new">
-<URL>&gitURL;/packages/&name;-&version;.txz</URL>
+<FILE Name="/boot/config/plugins/&name;/intel.gpu.top-&version;.txz" Run="upgradepkg --install-new">
+<URL>&gitURL;/packages/intel.gpu.top-&version;.txz</URL>
 <MD5>&md5;</MD5>
 </FILE>
 
@@ -106,7 +110,7 @@ echo "-----------------------------------------------"
 echo "----------Uninstalling Intel GPU TOP-----------"
 echo "-----------------------------------------------"
 # Remove plugin related files
-removepkg &name;-&version;
+removepkg intel.gpu.top-&version;
 rm -rf /usr/local/emhttp/plugins/&name;
 rm -rf &plugin;
 echo
