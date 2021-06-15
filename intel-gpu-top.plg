@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2021.05.04">
+  <!ENTITY version   "2021.06.15">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
   <!ENTITY md5       "09e55abd3880684513b29441e141e4fc">
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2021.06.15
+- Enable Intel Kernel module with 'force_probe' to support new Intel CPUs without the need to modify syslinux.cfg
 
 ###2021.05.04
 - Bumped 'intel_gpu_top' version. Based on Intel-GPU-Tools v1.26
@@ -67,17 +70,33 @@ This plugin satisfies installation prerequisites of the GPU Statistics plugin fr
 
 enableintel() {
 #Enable Intel Kernel module
-if modprobe i915 ; then
-  echo
-  echo "---Intel Kernel Module successfully enabled!---"
+PROBE="$(lspci -nn | grep -E "VGA compatible controller|Display controller" | grep "Intel" | sort | tail -1 | grep -oE '\[[a-f0-9][a-f0-9][a-f0-9][a-f0-9]:[a-f0-9][a-f0-9][a-f0-9][a-f0-9]\]' | sed 's/[][]//g' | cut -d ':' -f2)"
+if [ -z "${PROBE}" ]; then
+  if modprobe i915 ; then
+    echo
+    echo "---Intel Kernel Module successfully enabled!---"
+  else
+    echo
+    echo "------Something went wrong! Can't enable-------"
+    echo "----Intel Kernel Module, removing package!-----"
+    removepkg &name;-&version;
+    rm -rf /usr/local/emhttp/plugins/&name;
+    rm -rf &plugin;
+    exit 1
+  fi
 else
-  echo
-  echo "------Something went wrong! Can't enable-------"
-  echo "----Intel Kernel Module, removing package!-----"
-  removepkg &name;-&version;
-  rm -rf /usr/local/emhttp/plugins/&name;
-  rm -rf &plugin;
-  exit 1
+  if modprobe i915 force_probe=${PROBE} ; then
+    echo
+    echo "---Intel Kernel Module successfully enabled!---"
+  else
+    echo
+    echo "------Something went wrong! Can't enable-------"
+    echo "----Intel Kernel Module, removing package!-----"
+    removepkg &name;-&version;
+    rm -rf /usr/local/emhttp/plugins/&name;
+    rm -rf &plugin;
+    exit 1
+  fi
 fi
 sleep 1
 chmod -R 777 /dev/dri
