@@ -11,7 +11,7 @@ cp --parents -R /usr/bin/intel_gpu_top $TMP_DIR/$VERSION
 chmod -R 755 $TMP_DIR/$VERSION
 rm $TMP_DIR/$VERSION/$BASE_DIR/$PLUGIN_NAME/README.md
 makepkg -l y -c y $TMP_DIR/intel.gpu.top-$VERSION.txz
-md5sum $TMP_DIR/intel.gpu.top-$VERSION.txz > $TMP_DIR/intel.gpu.top-$VERSION.txz.md5
+md5sum $TMP_DIR/intel.gpu.top-$VERSION.txz | awk '{print $1}' > $TMP_DIR/intel.gpu.top-$VERSION.txz.md5
 rm -R $TMP_DIR/$VERSION/
 chmod -R 755 $TMP_DIR/*
 
