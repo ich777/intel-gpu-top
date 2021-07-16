@@ -2,10 +2,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2021.06.15">
+  <!ENTITY version   "2021.07.16">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
-  <!ENTITY md5       "09e55abd3880684513b29441e141e4fc">
+  <!ENTITY md5       "77421cde15cf364ceed07f39f8f96318">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2021.07.16
+- Bumped 'intel_gpu_top' version to Gitlab master branch from 2021.07.16
 
 ###2021.06.15
 - Enable Intel Kernel module with 'force_probe' to support new Intel CPUs without the need to modify syslinux.cfg
