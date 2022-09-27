@@ -2,10 +2,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2022.06.28">
+  <!ENTITY version   "2022.09.27">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
-  <!ENTITY md5       "1db5b4eb8106fd41956b9534a10bd508">
+  <!ENTITY md5       "f9988dd51b8d9e2ab9099b718ed65b4c">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.8.3">
 
 <CHANGES>
+
+###2022.09.27
+- Bumped 'intel_gpu_top' version to Gitlab master branch from 2022.09.27
 
 ###2022.06.28
 - Bumped 'intel_gpu_top' version to Gitlab master branch from 2022.06.28
