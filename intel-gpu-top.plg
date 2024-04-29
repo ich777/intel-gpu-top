@@ -124,7 +124,7 @@ chmod -R 777 /dev/dri
 #Check if Kernel Module is already enabled
 if grep -q "xe.force_probe=" /proc/cmdline ; then
   echo
-  echo "-------Found Xe force_probe= parameter!--------"
+  echo "--------Found Xe force_probe parameter!--------"
   echo "-----------Skipping i915 activation!-----------"
 elif [ "$(lsmod | grep "xe")" ]; then
   echo
