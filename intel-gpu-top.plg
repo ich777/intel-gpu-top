@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "intel-gpu-top">
   <!ENTITY author    "ich777">
-  <!ENTITY version   "2024.04.29">
+  <!ENTITY version   "2024.06.27">
   <!ENTITY gitURL    "https://github.com/&author;/&name;/releases/download">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
   <!ENTITY md5       "b68b4085c7180b65ab55d14ec6ad3c2f">
@@ -13,6 +13,9 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.10.0">
 
 <CHANGES>
+
+###2024.06.27
+- Change logic from Intel i915 driver activation
 
 ###2024.04.29
 - Add additinal logic for experimental Intel Xe Graphics Driver
@@ -126,9 +129,6 @@ if grep -q "xe.force_probe=" /proc/cmdline ; then
   echo
   echo "--------Found Xe force_probe parameter!--------"
   echo "-----------Skipping i915 activation!-----------"
-elif [ "$(lsmod | grep "xe")" ]; then
-  echo
-  echo "-------Intel Xe Driver already enabled!--------"
 elif [ -d /boot/config/plugins/intel-gvt-g ]; then
   echo
   echo "-----------Found Intel GVT-g Plugin!-----------"
